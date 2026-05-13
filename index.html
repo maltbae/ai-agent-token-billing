@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Token Billing — How It Drains Your Budget</title>
+    <meta name="description" content="How does AI agent token billing work? Why agentic AI drains budgets faster than you think. Shared budget risks, cost patterns, and the flat-rate fix.">
+    <meta property="og:title" content="AI Agent Token Billing — The Hidden Budget Drain">
+    <meta property="og:description" content="Agentic AI billing explained: loop taxes, context bloat, shared budget drain, and why token billing is broken for multi-agent systems.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maltbae.github.io/ai-agent-token-billing/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Agent Token Billing — How Your Budget Drains">
+    <meta name="twitter:description" content="Token billing is broken for agents. See the math.">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#0a0a0a;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.7;padding:0}
+        .container{max-width:900px;margin:0 auto;padding:40px 20px}
+        h1{font-size:2.4em;margin-bottom:12px;color:#fff}
+        h1 span{color:#ff6b6b}
+        .subtitle{font-size:1.15em;color:#999;margin-bottom:40px}
+        .urgent{background:#1a0505;border:1px solid #ff6b6b33;border-radius:10px;padding:20px;margin-bottom:36px}
+        .urgent p{color:#ff6b6b;font-size:1.05em}
+        .urgent strong{color:#fff}
+        h2{font-size:1.6em;color:#fff;margin:36px 0 16px;border-bottom:1px solid #222;padding-bottom:8px}
+        h3{color:#ff6b6b;margin:20px 0 8px}
+        p{color:#bbb;margin-bottom:12px}
+        table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.95em}
+        th{background:#151515;color:#ff6b6b;text-align:left;padding:12px 14px;font-weight:600;white-space:nowrap}
+        td{padding:11px 14px;border-bottom:1px solid #1a1a1a;vertical-align:top}
+        tr:hover td{background:#111}
+        .check{color:#4ade80;font-size:1.1em}
+        .cross{color:#ff6b6b;font-size:1.1em}
+        .highlight{color:#ff6b6b;font-weight:700}
+        .cta{display:inline-block;background:#ff6b6b;color:#0a0a0a;font-weight:700;padding:16px 36px;border-radius:8px;text-decoration:none;font-size:1.15em;margin:30px 0;text-align:center}
+        .cta:hover{background:#ff8a8a;transform:translateY(-1px)}
+        .cta-wrap{text-align:center;margin:40px 0}
+        .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin:20px 0}
+        .card{background:#111;border:1px solid #222;border-radius:10px;padding:20px}
+        .card h3{color:#ff6b6b;margin-bottom:8px;font-size:1.1em}
+        .card p{color:#bbb;font-size:.93em}
+        .flow{background:#111;border:1px solid #222;border-radius:10px;padding:24px;margin:20px 0;text-align:center}
+        .flow-step{display:inline-block;background:#1a1a1a;border:1px solid #333;border-radius:8px;padding:12px 20px;margin:6px;color:#ccc;font-size:.9em}
+        .flow-arrow{color:#ff6b6b;font-size:1.2em;margin:0 4px}
+        .math{background:#111;border:1px solid #222;border-radius:10px;padding:20px;margin:20px 0;font-family:monospace;font-size:.95em;color:#ccc}
+        .math .result{color:#ff6b6b;font-weight:700;font-size:1.1em}
+        .related{background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:24px;margin:40px 0}
+        .related h3{color:#ff6b6b;margin-bottom:12px}
+        .related a{display:block;color:#8ab4f8;text-decoration:none;padding:5px 0;font-size:.95em}
+        .related a:hover{text-decoration:underline}
+        @media(max-width:600px){
+            h1{font-size:1.7em}
+            table{font-size:.82em}
+            th,td{padding:8px 6px}
+            .container{padding:24px 14px}
+            .flow-step{display:block;margin:6px auto}
+            .flow-arrow{display:block;margin:4px auto}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>AI Agent <span>Token Billing</span> — The Hidden Drain</h1>
+    <p class="subtitle">How token billing breaks down for agentic AI. Loop taxes, context bloat, shared budget risks, and why the industry is shifting to flat-rate.</p>
+
+    <div class="urgent">
+        <p>⚠️ <strong>Token billing was designed for chat, not agents.</strong> Agentic AI makes 10–100× more API calls than simple chat. Your budget can't predict it.</p>
+    </div>
+
+    <h2>🤖 How Agentic AI Billing Works</h2>
+    <p>A traditional chatbot: you send one message, get one response. <strong>One API call. Predictable cost.</strong></p>
+    <p>An AI agent: it thinks, plans, uses tools, observes results, adjusts, repeats. <strong>10–100 API calls per task. Unpredictable cost.</strong></p>
+
+    <div class="flow">
+        <span class="flow-step">📨 User Request</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🧠 Agent Thinks</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🔧 Tool Call</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">👁️ Observe Result</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🧠 Re-think</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">🔧 More Tools</span>
+        <span class="flow-arrow">→</span>
+        <span class="flow-step">✅ Done</span>
+        <p style="margin-top:12px;color:#ff6b6b">Each step = token charges. Context grows every loop.</p>
+    </div>
+
+    <h2>💸 The 5 Budget Drain Patterns</h2>
+    <div class="card-grid">
+        <div class="card">
+            <h3>1. Loop Tax</h3>
+            <p>Every agent loop resends the full conversation. A 20-loop debugging session = 20× the base cost. Most loops happen without you knowing.</p>
+        </div>
+        <div class="card">
+            <h3>2. Context Bloat</h3>
+            <p>Tool outputs (file contents, search results, API responses) get added to context. Later loops process MORE tokens than earlier ones — exponentially.</p>
+        </div>
+        <div class="card">
+            <h3>3. Shared Budget Drain</h3>
+            <p>Multi-agent systems share one API budget. Agent A's heavy task depletes Agent B's budget. One runaway agent starves the whole fleet.</p>
+        </div>
+        <div class="card">
+            <h3>4. Error Tax</h3>
+            <p>Failed tool calls, wrong paths, and retries all consume tokens. You literally pay for the AI's mistakes. Error-heavy tasks cost 3–5× more.</p>
+        </div>
+        <div class="card">
+            <h3>5. Idle Burn</h3>
+            <p>Agents that run 24/7 accumulate costs even during "waiting" periods. Background monitoring = constant token drip that adds up monthly.</p>
+        </div>
+    </div>
+
+    <h2>📊 Real Drain Scenarios</h2>
+    <div class="math">
+        <p><strong>Scenario: 24/7 Agent Monitoring (1 agent)</strong></p>
+        <p>Heartbeat check every 30 min = 48 checks/day</p>
+        <p>Avg 5K tokens/check = 240K tokens/day</p>
+        <p>Monthly: 7.2M tokens = ~$72–150/mo for ONE agent doing monitoring</p>
+        <p class="result">A fleet of 10 agents? $720–1,500/mo just for "checking in"</p>
+    </div>
+    <div class="math">
+        <p><strong>Scenario: Complex Code Refactor (single task)</strong></p>
+        <p>12 agent loops × avg 15K tokens/loop = 180K tokens</p>
+        <p>Context bloat: later loops 3× larger than first</p>
+        <p class="result">One refactor task: ~$5–15. Ten tasks/week = $200–600/mo</p>
+    </div>
+
+    <h2>🏢 Why Teams Get Hit Hardest</h2>
+    <table>
+        <thead>
+            <tr><th>Risk</th><th>Individual</th><th>Team (5 devs)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Monthly token bill</strong></td><td>$40–200</td><td class="highlight">$200–1,000+</td></tr>
+            <tr><td><strong>Budget overruns</strong></td><td>Personal pain</td><td>Shared pain (one person drains for all)</td></tr>
+            <tr><td><strong>Cost predictability</strong></td><td>Low</td><td class="highlight">Very low</td></tr>
+            <tr><td><strong>Agent usage conflicts</strong></td><td>N/A</td><td class="highlight">Frequent</td></tr>
+        </tbody>
+    </table>
+
+    <h2>✅ The Flat-Rate Fix</h2>
+    <p>Flat-rate pricing eliminates every drain pattern above. No loop tax. No context bloat charges. No shared budget conflicts. No error tax. No idle burn.</p>
+    <table>
+        <thead>
+            <tr><th>Drain Pattern</th><th>Token Billing</th><th>Flat Rate (OpenClaw)</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Loop Tax</td><td class="highlight">Per loop charge</td><td><span class="check">✓</span> Zero</td></tr>
+            <tr><td>Context Bloat</td><td class="highlight">More tokens = more $</td><td><span class="check">✓</span> Zero</td></tr>
+            <tr><td>Shared Budget Drain</td><td class="highlight">One budget for all</td><td><span class="check">✓</span> Per-agent, fixed cost</td></tr>
+            <tr><td>Error Tax</td><td class="highlight">You pay for mistakes</td><td><span class="check">✓</span> Zero</td></tr>
+            <tr><td>Idle Burn</td><td class="highlight">24/7 = 24/7 billing</td><td><span class="check">✓</span> Same fixed price</td></tr>
+        </tbody>
+    </table>
+
+    <div class="cta-wrap">
+        <a href="https://openclaw.ai" class="cta">Stop the Drain — Switch to Flat Rate →</a>
+    </div>
+
+    <div class="related">
+        <h3>🔗 Related Tools</h3>
+        <a href="https://maltbae.github.io/copilot-alternative-2026/">🏆 Copilot Alternatives 2026</a>
+        <a href="https://maltbae.github.io/claude-code-pricing/">💰 Claude Code Real Cost</a>
+        <a href="https://maltbae.github.io/copilot-countdown/">⏰ Copilot Token Countdown</a>
+        <a href="https://maltbae.github.io/ai-costs-exposed/">⚠️ AI Costs Exposed</a>
+        <a href="https://maltbae.github.io/ai-cost-calculator/">🧮 AI Cost Calculator</a>
+        <a href="https://maltbae.github.io/frontier-flat-rate/">🚀 Frontier AI — Flat Rate</a>
+        <a href="https://maltbae.github.io/ipo-proof-pricing/">🛡️ IPO-Proof Pricing</a>
+        <a href="https://maltbae.github.io/flat-rate-ai-subscription/">💳 Flat Rate AI Subscription</a>
+        <a href="https://maltbae.github.io/openclaw-skills/">🧩 OpenClaw Skills Ecosystem</a>
+        <a href="https://maltbae.github.io/ai-cost-tools/">🧰 AI Cost Tools — Master Hub</a>
+    </div>
+
+    <p style="text-align:center;color:#555;font-size:.85em;margin-top:30px">Built by the OpenClaw community · <a href="https://openclaw.ai" style="color:#8ab4f8">openclaw.ai</a></p>
+</div>
+</body>
+</html>
